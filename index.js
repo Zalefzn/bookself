@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
           addBook();
      });
 
-     if (isStoreExist()) {
+     if (isStorageExist()) {
           loadData();
         }
 });
@@ -55,6 +55,9 @@ document.addEventListener(EVENT_READ, function() {
      const complateBooks = document.getElementById('completeBookshelfList');
      complateBooks.innerHTML ="";
 
+     const complateCheck = document.getElementById('inputBookIsComplete');
+     complateCheck.innerHTML = "";
+
      for(const bookItems of books){
           const dataBook = createBook(bookItems);
           console.info(dataBook);
@@ -64,6 +67,7 @@ document.addEventListener(EVENT_READ, function() {
                complateBooks.append(dataBook);  
           
      }
+
 });
 
 function createBook(bookData){
@@ -198,14 +202,14 @@ function findBookIndex(bookId){
 }
 
 function saveBook(){
-     if(isStoreExist()){
+     if(isStorageExist()){
           const parsed = JSON.stringify(books);
           localStorage.setItem(STORAGE_KEY, parsed);
           document.dispatchEvent(new Event(SAVED_EVENT));
      }
 }
 
-function isStoreExist(){
+function isStorageExist(){
      if(typeof (Storage) === undefined){
           alert('Local Storage Tidak Support');
 
@@ -228,7 +232,7 @@ function loadData(){
 
 
      if(dataBooks !== null){
-          for(const book of books){
+          for(const book of dataBooks){
                books.push(book);
           }
      }
