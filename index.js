@@ -28,6 +28,7 @@ function generatedBookObject(id,title,author,year, isComplated){
      }
 }
 
+
 function addBook() {
      const textBook = document.getElementById('inputBookTitle').value;
      const textAuthor = document.getElementById('inputBookAuthor').value;
@@ -276,6 +277,31 @@ function loadData(){
 
      document.dispatchEvent(new Event(EVENT_READ));
 
+}
+
+function searchData(){
+     var input, 
+     filter, 
+     textValue, 
+     form, 
+     list, 
+     item, 
+     data;
+
+     input = document.getElementById('searchBookTitle');
+     filter = input.value.toUpperCase();
+     form = document.getElementById('searchBook');
+     list = document.getElementsByClassName('book_shelf');
+
+     for (data = 0; data < list.length; data++) {
+          item = list[data].getElementsByClassName("book_list")[0];
+          textValue = item.textContent || item.innerText;
+          if (textValue.toUpperCase().indexOf(filter) > -1) {
+              list[data].style.display = "";
+          } else {
+              list[data].style.display = "none";
+          }
+      }
 }
 
 
