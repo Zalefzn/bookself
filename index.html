@@ -14,7 +14,7 @@
 <body>
 <header class="head_bar">
   <h1 class="head_bar__title">Todo Book </h1>
-  <button class="bgChange"type="button" name="button" id="changeBg">Change</button>
+  <button class="bgChange"type="button" name="button" id="changeBg" onclick="changeBg()">Dark Mode</button>
 </header>
 <main>
   <section class="input_section">
@@ -36,18 +36,25 @@
         <label for="inputBookIsComplete">Selesai dibaca</label>
         <input id="inputBookIsComplete" type="checkbox">
       </div>
-      <button id="bookSubmit" type="submit">Masukkan Buku ke rak <span>Belum selesai dibaca</span></button>
+      <button id="bookSubmit" type="submit">Masukkan Buku ke rak</button>
     </form>
   </section>
   
   <section class="search_section">
-    <h2>Cari Buku (Opsional)</h2>
+    <h2>Cari Buku</h2>
     <form id="searchBook">
       <label for="searchBookTitle">Judul</label>
       <input id="searchBookTitle" type="text">
       <button id="searchSubmit" type="submit">Cari</button>
     </form>
   </section>
+  
+
+  <div id="box">
+    <i class="fas fa-check-circle"></i> 
+    <h1>Delete Success!</h1>
+    <a class="close" onclick="navigateClose()">Close Box</a>
+  </div>
   
   <section class="book_shelf">
     <h2>Belum selesai dibaca</h2>

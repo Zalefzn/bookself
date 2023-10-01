@@ -171,7 +171,7 @@ main {
 
 .book_shelf > .book_list > .book_item > .action > button {
     border: 0;
-    padding: 5px;
+    padding: 10px;
     margin: 0 5px 0 0;
     border-radius: 5px;
     cursor: pointer;
@@ -186,3 +186,47 @@ main {
     background-color: darkred;
     color: white;
 }
+
+.book_shelf > .book_list > .book_item > .action > .blue{
+    background-color: blue;
+    color: white
+}
+
+#box{
+    width: 500px;
+    overflow: hidden;
+    background: rgb(140, 255, 105);
+    box-shadow: 0 0 5px black;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    padding: 10px;
+    text-align: center;
+    display: none;
+  }
+  
+  #box span{
+    color: rgb(194, 250, 176);
+    font-size: 40px;
+    display: block;
+    margin: 20px 0;
+  }
+  
+  #box h1{
+    color: rgb(255, 0, 0)
+  }
+  
+  .close{
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    background: rgb(14, 83, 0);
+    display: inline-block;
+    border-radius: 1px solid #000;
+  }

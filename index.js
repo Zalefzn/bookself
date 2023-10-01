@@ -4,6 +4,16 @@ const SAVED_EVENT = 'saved-book';
 const STORAGE_KEY = 'BOOKS_APPS';
 
 
+function changeBg(){
+     const changeBg = document.querySelector('body');
+     changeBg.style.backgroundColor = "black";
+     changeBg.style.color = "white";
+}
+
+function navigateClose(){
+     window.location.href="./index.html";
+}
+
 function generatedId (){
      return + new Date();
 }
@@ -55,9 +65,6 @@ document.addEventListener(EVENT_READ, function() {
      const complateBooks = document.getElementById('completeBookshelfList');
      complateBooks.innerHTML ="";
 
-     const complateCheck = document.getElementById('inputBookIsComplete');
-     complateCheck.innerHTML = "";
-
      for(const bookItems of books){
           const dataBook = createBook(bookItems);
           console.info(dataBook);
@@ -96,6 +103,10 @@ function createBook(bookData){
 
      if(bookData.isComplated){
 
+          const editButton = document.createElement('button');
+          editButton.classList.add('blue');
+          editButton.innerHTML ="Edit";
+
           const undoButton = document.createElement('button');
           undoButton.classList.add('green');
           undoButton.innerHTML="Belum Selesai Baca"
@@ -106,19 +117,34 @@ function createBook(bookData){
 
           const trashButton = document.createElement('button');
           trashButton.classList.add('red');
+          trashButton.classList.add('show');
           trashButton.innerHTML ="Delete";
+
+          var modal = null
        
           trashButton.addEventListener('click', function () {
-            removeBookFromCompleted(bookData.id);
+               removeBookFromCompleted(bookData.id);
+               if(modal === null) {
+                    document.getElementById("box").style.display = "block";
+                    modal = true
+                  } else {
+                    document.getElementById("box").style.display = "none";
+                    modal = null
+                  }
           });
+       
 
           const handle = document.createElement('div');
           handle.classList.add('action');
-          handle.append(undoButton, trashButton);
+          handle.append(undoButton, trashButton, editButton);
 
           containerBox.append(handle);
 
         } else {
+
+          const editButton = document.createElement('button');
+          editButton.classList.add('blue');
+          editButton.innerHTML ="Edit";
 
           const undoButton = document.createElement('button');
           undoButton.classList.add('green');
@@ -130,15 +156,26 @@ function createBook(bookData){
 
           const trashButton = document.createElement('button');
           trashButton.classList.add('red');
+          trashButton.classList.add('show');
           trashButton.innerHTML="Delete"
+
+          var modal = null
        
           trashButton.addEventListener('click', function () {
                removeBookFromCompleted(bookData.id);
+               if(modal === null) {
+                    document.getElementById("box").style.display = "block";
+                    modal = true
+                  } else {
+                    document.getElementById("box").style.display = "none";
+                    modal = null
+                  }
           });
 
           const handle = document.createElement('div');
           handle.classList.add('action');
-          handle.append(undoButton, trashButton);
+          handle.append(undoButton, trashButton, editButton);
+
 
           containerBox.append(handle);
 
@@ -147,7 +184,6 @@ function createBook(bookData){
 
      return containerBook;
 }
-
 
 
 function findBook(bookId){
@@ -179,6 +215,7 @@ function removeBookFromCompleted(bookId) {
      document.dispatchEvent(new Event(EVENT_READ));
 
      saveBook();
+     
    }
 
 function undoBook(bookId){
@@ -240,3 +277,5 @@ function loadData(){
      document.dispatchEvent(new Event(EVENT_READ));
 
 }
+
+
