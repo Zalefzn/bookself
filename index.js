@@ -4,6 +4,7 @@ const SAVED_EVENT = 'saved-book';
 const STORAGE_KEY = 'BOOKS_APPS';
 
 
+
 function changeBg(){
      const changeBg = document.querySelector('body');
      changeBg.style.backgroundColor = "black";
@@ -16,7 +17,7 @@ function navigateClose(){
 
 function generatedId (){
      return + new Date();
-}
+}    
 
 function generatedBookObject(id,title,author,year, isComplated){
      return{
@@ -28,22 +29,24 @@ function generatedBookObject(id,title,author,year, isComplated){
      }
 }
 
-
 function addBook() {
      const textBook = document.getElementById('inputBookTitle').value;
      const textAuthor = document.getElementById('inputBookAuthor').value;
      const textYear = document.getElementById('inputBookYear').value;
+     const checkBox = document.getElementById('inputBookIsComplete').checked;
+     
+     
+          const generatedID = generatedId();
+          const bookData = generatedBookObject(generatedID, textBook, textAuthor, Number(textYear), Boolean(checkBox));
+     
+          books.push(bookData);
 
-     const generatedID = generatedId();
-     const bookData = generatedBookObject(generatedID, textBook, textAuthor, textYear, false);
+          document.dispatchEvent(new Event(EVENT_READ));
 
-     books.push(bookData);
-
-     document.dispatchEvent(new Event(EVENT_READ));
-
-     saveBook();
-
-     console.info(bookData);
+          saveBook();
+     
+          console.info(bookData);
+    
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -71,8 +74,10 @@ document.addEventListener(EVENT_READ, function() {
           console.info(dataBook);
           if(!bookItems.isComplated)
                unComplateBooks.append(dataBook);
+          
           else
                complateBooks.append(dataBook);  
+               
           
      }
 
@@ -104,10 +109,6 @@ function createBook(bookData){
 
      if(bookData.isComplated){
 
-          const editButton = document.createElement('button');
-          editButton.classList.add('blue');
-          editButton.innerHTML ="Edit";
-
           const undoButton = document.createElement('button');
           undoButton.classList.add('green');
           undoButton.innerHTML="Belum Selesai Baca"
@@ -137,15 +138,11 @@ function createBook(bookData){
 
           const handle = document.createElement('div');
           handle.classList.add('action');
-          handle.append(undoButton, trashButton, editButton);
+          handle.append(undoButton, trashButton);
 
           containerBox.append(handle);
 
         } else {
-
-          const editButton = document.createElement('button');
-          editButton.classList.add('blue');
-          editButton.innerHTML ="Edit";
 
           const undoButton = document.createElement('button');
           undoButton.classList.add('green');
@@ -175,7 +172,7 @@ function createBook(bookData){
 
           const handle = document.createElement('div');
           handle.classList.add('action');
-          handle.append(undoButton, trashButton, editButton);
+          handle.append(undoButton, trashButton);
 
 
           containerBox.append(handle);
@@ -268,10 +265,9 @@ function loadData(){
 
      let dataBooks =  JSON.parse(serializaData);
 
-
      if(dataBooks !== null){
           for(const book of dataBooks){
-               books.push(book);
+              books.push(book);
           }
      }
 
